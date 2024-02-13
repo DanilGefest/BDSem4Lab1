@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подсчет факториала или среднего арифметического</title>
+</head>
+<body>
+    <input id="inputNumber" type="number" placeholder="Введите число">
+    <button onclick="calculate()">Calculate</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateFactorial(num) {
+            if (num < 0) {
+                return "Ошибка. Нельзя подсчитать факториал отрицательного числа";
+            } else if (num === 0) {
+                return 1;
+            } else {
+                let fact = 1;
+                for (let i = 1; i <= num; i++) {
+                    fact *= i;
+                }
+                return fact;
+            }
+        }
+
+        function calculateAverage(num) {
+            let sum = 0;
+            for (let i = 1; i <= num; i++) {
+                sum += i;
+            }
+            return sum / num;
+        }
+
+        function calculate() {
+            const inputNumber = parseInt(document.getElementById("inputNumber").value);
+            let result = '';
+
+            if (inputNumber % 2 === 0) {
+                result = 'Факториал числа ' + inputNumber + ' равен: ' + calculateFactorial(inputNumber);
+            } else {
+                result = 'Среднее арифметическое натуральных чисел от 1 до ' + inputNumber + ' равно: ' + calculateAverage(inputNumber);
+            }
+
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+</body>
+</html>

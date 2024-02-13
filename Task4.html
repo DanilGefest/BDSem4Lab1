@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Студенты</title>
+</head>
+<body>
+
+<h2>Введите код направления:</h2>
+<h4>Возможные направления: ПИ, ПМИ, ФИТ</h4>
+<input type="text" id="directionCode">
+<button onclick="showStudents()">Вывести</button>
+
+<table border="1">
+  <tr>
+    <th>Фамилия</th>
+    <th>Имя</th>
+    <th>Курс</th>
+    <th>Код направления</th>
+  </tr>
+  <tbody id="studentTable"></tbody>
+</table>
+
+<script>
+const students = [
+  ["Иванов", "Иван", 3, "ПИ"],
+  ["Петров", "Петр", 2, "ПМИ"],
+  ["Сидоров", "Андрей", 1, "ПМИ"],
+  ["Козлов", "Алексей", 4, "ФИТ"],
+  ["Смирнова", "Ольга", 2, "ФИТ"],
+  ["Никитина", "Екатерина", 3, "ПИ"]
+];
+
+function showStudents() {
+  const directionCode = document.getElementById("directionCode").value;
+  const studentTable = document.getElementById("studentTable");
+  studentTable.innerHTML = "";
+
+  students.forEach(student => {
+    if (student[3] === directionCode) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${student[0]}</td>
+        <td>${student[1]}</td>
+        <td>${student[2]}</td>
+        <td>${student[3]}</td>
+      `;
+      studentTable.appendChild(row);
+    } else {
+      console.log(`${student[0]} ${student[1]} - ${student[3]}`);
+    }
+  });
+}
+</script>
+
+</body>
+</html>

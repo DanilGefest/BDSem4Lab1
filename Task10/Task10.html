@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Student Information</title>
+</head>
+
+<body>
+    <table border="1">
+        <tr>
+            <th>Атрибуты</th>
+            <th>Значения</th>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td id="lastName"></td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td id="firstName"></td>
+        </tr>
+        <tr>
+            <td>Отчество</td>
+            <td id="middleName"></td>
+        </tr>
+        <tr>
+            <td>Год рождения</td>
+            <td id="birthYear"></td>
+        </tr>
+        <tr>
+            <td>Класс</td>
+            <td id="studentClass"></td>
+        </tr>
+        <tr>
+            <td>Срок обучения</td>
+            <td id="educationTerm"></td>
+        </tr>
+        <tr>
+            <td>Любимые предметы</td>
+            <td id="favoriteSubjects"></td>
+        </tr>
+        <tr>
+            <td>Адрес прописки</td>
+            <td id="registrationAddress"></td>
+        </tr>
+        <tr>
+            <td>Адрес проживания</td>
+            <td id="residentialAddress"></td>
+        </tr>
+    </table>
+
+    <script>
+        // Загрузка данных из JSON файла
+        fetch('student.json')
+            .then(response => response.json())
+            .then(student => {
+                // Логика проверки года рождения
+                var checkBirthYear = function (birthYear) {
+                    var currentYear = new Date().getFullYear();
+                    return birthYear >= currentYear - 200 && birthYear <= currentYear;
+                };
+
+                // Метод для перехода в следующий класс
+                var moveToNextClass = function (educationTerm, studentClass) {
+                    if (educationTerm === 9 && studentClass < 9) {
+                        return studentClass + 1;
+                    } else if (educationTerm === 11 && studentClass < 11) {
+                        return studentClass + 1;
+                    } else {
+                        alert("Максимальный класс достигнут");
+                        return "Максимальный класс достигнут";
+                    }
+                };
+
+                // Вывод значений в таблицу
+                document.getElementById("lastName").innerText = student.lastName;
+                document.getElementById("firstName").innerText = student.firstName;
+                document.getElementById("middleName").innerText = student.middleName;
+                document.getElementById("birthYear").innerText = checkBirthYear(student.birthYear) ? student.birthYear : "Ошибка в годе рождения";
+                document.getElementById("studentClass").innerText = student.studentClass;
+                document.getElementById("educationTerm").innerText = student.educationTerm;
+                document.getElementById("favoriteSubjects").innerText = student.favoriteSubjects.join(", ");
+                document.getElementById("registrationAddress").innerText = `${student.registrationAddress.country}, ${student.registrationAddress.region}, ${student.registrationAddress.city}, ${student.registrationAddress.street}, ${student.registrationAddress.houseNumber}, ${student.registrationAddress.apartmentNumber}`;
+                document.getElementById("residentialAddress").innerText = `${student.residentialAddress.country}, ${student.residentialAddress.region}, ${student.residentialAddress.city}, ${student.residentialAddress.street}, ${student.residentialAddress.houseNumber}, ${student.residentialAddress.apartmentNumber}`;
+
+                // Вызов метода для перевода в следующий класс
+                var nextClass = moveToNextClass(student.educationTerm, student.studentClass);
+                document.getElementById("studentClass").innerText = nextClass;
+            })
+            .catch(error => console.error('Ошибка загрузки JSON файла:', error));
+    </script>
+</body>
+</html>

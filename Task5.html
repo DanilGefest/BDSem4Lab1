@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Student Information</title>
+</head>
+<body>
+
+<script>
+var student = {
+    lastName: "Иванов",
+    firstName: "Пётр",
+    middleName: "Алексеевич",
+    birthYear: 2006,
+    studentClass: 5,
+    favoriteSubjects: ["Математика", "ИЗО", "Технология"],
+};
+
+document.getElementById("lastName").innerText = student.lastName;
+document.getElementById("firstName").innerText = student.firstName;
+document.getElementById("middleName").innerText = student.middleName;
+document.getElementById("birthYear").innerText = student.birthYear;
+document.getElementById("studentClass").innerText = student.studentClass;
+document.getElementById("favoriteSubjects").innerText = student.favoriteSubjects.join(", ");
+</script>
+
+</body>
+</html>
